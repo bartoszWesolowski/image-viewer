@@ -42,8 +42,6 @@ public class ImageViewer {
     // static fields:
     private static final String VERSION = "Version 3.1";
     private static JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
-    private static ImageIcon zoomInIcon = new ImageIcon("/zoomIn.png");
-    private static ImageIcon zoomOutIcon = new ImageIcon("/zoomOut.png");
     private static final String DEGREE = "\u00b0";
 
     // fields:
@@ -53,12 +51,6 @@ public class ImageViewer {
     private JLabel statusLabel;
     private OFImage currentImage;
     private JScrollPane scrollPanel;
-    private JLabel zoomLabel;
-    private JButton zoomInButton;
-    private JButton zoomOutButton;
-    private JButton zoomReset;
-    private JSlider zoomSlider;
-    private JLabel zoomValue;
     private JFrame scFrame;
     private JSpinner spinnerW;
     private JSpinner spinnerH;

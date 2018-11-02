@@ -1,9 +1,5 @@
 package com.image.viever.view;
 
-
-import com.image.viever.ImagePanel;
-import com.image.viever.controller.ZoomController;
-
 import javax.swing.*;
 import java.awt.*;
 
