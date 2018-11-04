@@ -1,10 +1,8 @@
 package com.image.viever.controller;
 
-import com.image.viever.ImagePanel;
+import com.image.viever.view.ImageViewerFrame;
 import com.image.viever.view.ZoomPanel;
-
-import javax.naming.ldap.PagedResultsControl;
-import javax.swing.*;
+import com.image.viever.view.ImageScrollPanel;
 
 /**
  * Created by Bartosz Wesolowski on 02.11.2018.
@@ -19,15 +17,18 @@ public class ZoomController {
 
     private ZoomPanel zoomPanel;
 
-    private ImagePanel imagePanel;
-
-    private JScrollPane scroolPanel;
+    private ImageScrollPanel imageScrollPanel;
 
     //TODO: FIX ARGUMENTS PASSED IN CONSTRUCTOR HERE
-    public ZoomController(final ZoomPanel zoomPanel, final ImagePanel imagePanel, final JScrollPane scroolPanel) {
+
+
+    public ZoomController(ImageViewerFrame mainFrame) {
+        this(mainFrame.getZoomPanel(), mainFrame.getImageScrollPanel());
+    }
+
+    public ZoomController(final ZoomPanel zoomPanel, final ImageScrollPanel imageScrollPanel) {
         this.zoomPanel = zoomPanel;
-        this.imagePanel = imagePanel;
-        this.scroolPanel = scroolPanel;
+        this.imageScrollPanel = imageScrollPanel;
     }
 
     public void init() {
@@ -53,10 +54,13 @@ public class ZoomController {
         });
     }
 
+    public void addFileChangedListener() {
+        //TODO: implement me
+    }
+
     private void updateZoom() {
         zoomPanel.setZoom(zoomValue);
-        imagePanel.zoom(zoomValue);
-        scroolPanel.getViewport().revalidate();
+        imageScrollPanel.updateZoom(zoomValue);
     }
 
 }

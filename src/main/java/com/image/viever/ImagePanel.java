@@ -73,6 +73,9 @@ public class ImagePanel extends JComponent
      * @param factor
      */
     public void zoom(double factor){
+        if (original == null) {
+            return;
+        }
     	double k=(factor)/100;
     	int newWidth = new Double(original.getWidth() * k).intValue();
     	int newHeight = new Double(original.getHeight() * k).intValue();

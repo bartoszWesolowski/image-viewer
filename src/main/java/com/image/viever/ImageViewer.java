@@ -14,6 +14,7 @@ import com.image.viever.filters.PixelizeFilter;
 import com.image.viever.filters.SmoothFilter;
 import com.image.viever.filters.SolarizeFilter;
 import com.image.viever.filters.ThresholdFilter;
+import com.image.viever.view.ImageScrollPanel;
 import com.image.viever.view.ZoomPanel;
 
 import java.awt.*;
@@ -352,7 +353,7 @@ public class ImageViewer {
 
         //Create a panel with two buttons, a slider and a label for zooming on right
         ZoomPanel zoomPanel = new ZoomPanel();
-        ZoomController zoomController = new ZoomController(zoomPanel, imagePanel, scrollPanel);
+        ZoomController zoomController = new ZoomController(zoomPanel, new ImageScrollPanel(imagePanel));
         zoomController.init();
 
         contentPane.add(zoomPanel, BorderLayout.EAST);

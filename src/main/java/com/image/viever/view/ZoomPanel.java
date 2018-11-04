@@ -9,10 +9,10 @@ import java.awt.*;
 public class ZoomPanel extends JPanel {
 
     private static ImageIcon zoomInIcon = new ImageIcon(ClassLoader.getSystemResource("zoomIn.png"));
+
     private static ImageIcon zoomOutIcon = new ImageIcon(ClassLoader.getSystemResource("zoomOut.png"));
 
-
-    private JLabel zoomValueLabel = new JLabel();
+    private final JLabel zoomValueLabel = new JLabel();
 
     private final JButton zoomOutButton = new JButton(zoomOutIcon);
 
