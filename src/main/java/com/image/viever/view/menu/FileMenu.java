@@ -24,4 +24,24 @@ public class FileMenu extends JMenu {
         addSeparator();
         add(quitMenuItem);
     }
+
+    public JMenuItem getOpenMenuItem() {
+        return openMenuItem;
+    }
+
+    public JMenuItem getOpenExampleMenuItem() {
+        return openExampleMenuItem;
+    }
+
+    public JMenuItem getCloseMenuItem() {
+        return closeMenuItem;
+    }
+
+    public JMenuItem getSaveAsMenuItem() {
+        return saveAsMenuItem;
+    }
+
+    public JMenuItem getQuitMenuItem() {
+        return quitMenuItem;
+    }
 }

@@ -1,6 +1,7 @@
 package com.image.viever.view;
 
 import com.image.viever.ImagePanel;
+import com.image.viever.ImageWrapper;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -26,5 +27,10 @@ public class ImageScrollPanel extends JScrollPane {
     public void updateZoom(int zoom) {
         imagePanel.zoom(zoom);
         getViewport().revalidate();
+    }
+
+    public void setImage(ImageWrapper imageWrapper) {
+        imagePanel.setImage(imageWrapper);
+        imagePanel.saveOriginal();
     }
 }

@@ -30,7 +30,7 @@ public class ImageFileManager
      * @param imageFile  The image file to be loaded.
      * @return           The image object or null is it could not be read.
      */
-    public static OFImage loadImage(File imageFile)
+    public static ImageWrapper loadImage(File imageFile)
     {
         try {
             BufferedImage image = ImageIO.read(imageFile);
@@ -38,7 +38,7 @@ public class ImageFileManager
                 // we could not load the image - probably invalid file format
                 return null;
             }
-            return new OFImage(image);
+            return new ImageWrapper(image, imageFile);
         }
         catch(IOException exc) {
             return null;
@@ -52,7 +52,7 @@ public class ImageFileManager
      * @param image  The image to be saved.
      * @param file   The file to save to.
      */
-    public static void saveImage(OFImage image, File file)
+    public static void saveImage(ImageWrapper image, File file)
     {
         try {
             ImageIO.write(image, IMAGE_FORMAT, file);

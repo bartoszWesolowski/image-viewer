@@ -1,5 +1,9 @@
 package com.image.viever.controller;
 
+import com.image.viever.events.Event;
+import com.image.viever.events.EventListener;
+import com.image.viever.events.EventManager;
+import com.image.viever.events.EventTypes;
 import com.image.viever.view.ImageViewerFrame;
 import com.image.viever.view.ZoomPanel;
 import com.image.viever.view.ImageScrollPanel;
@@ -55,7 +59,17 @@ public class ZoomController {
     }
 
     public void addFileChangedListener() {
-        //TODO: implement me
+        EventManager.getInstance().add(new EventListener() {
+            @Override
+            public boolean accepts(final Event event) {
+                return event.getId() == EventTypes.IMAGE_CHANGED;
+            }
+
+            @Override
+            public void handle(final Event event) {
+                zoomValue = ZOOM_INITIAL_VALUE;
+            }
+        });
     }
 
     private void updateZoom() {

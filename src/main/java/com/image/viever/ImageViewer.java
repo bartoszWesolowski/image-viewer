@@ -50,7 +50,7 @@ public class ImageViewer {
     private ImagePanel imagePanel;
     private JLabel filenameLabel;
     private JLabel statusLabel;
-    private OFImage currentImage;
+    private ImageWrapper currentImage;
     private JScrollPane scrollPanel;
     private JFrame scFrame;
     private JSpinner spinnerW;
@@ -139,6 +139,7 @@ public class ImageViewer {
         frame.setLocation(d.width / 2 - frame.getWidth() / 2, d.height / 2 - frame.getHeight() / 2);
         scrollPanel.getViewport().revalidate();
         resetSlider();
+        frame.repaint();
     }
 
     /**
@@ -186,7 +187,7 @@ public class ImageViewer {
      */
     private void applyFilter(Filter filter) {
         if (currentImage != null) {
-            OFImage filtered = new OFImage(currentImage);
+            ImageWrapper filtered = ImageWrapper.clone(currentImage);
             filter.apply(filtered);
             showStatus("Applied: " + filter.getName());
             currentImage = filtered;
@@ -228,7 +229,7 @@ public class ImageViewer {
         g.drawImage(currentImage, 0, 0, newWidth, newHeight, 0, 0, currentImage.getWidth(),
                 currentImage.getHeight(), null);
         g.dispose();
-        OFImage img = new OFImage(resized);
+        ImageWrapper img = new ImageWrapper(resized, currentImage.getOrginalFile());
         currentImage = img;
         imagePanel.setImage(currentImage);
         imagePanel.saveOriginal();
@@ -259,7 +260,7 @@ public class ImageViewer {
             g.drawImage(currentImage, null, 0, 0);
             g.dispose();
 
-            currentImage = new OFImage(rotated);
+            currentImage = new ImageWrapper(rotated, currentImage.getOrginalFile());
             imagePanel.setImage(currentImage);
             imagePanel.saveOriginal();
             scrollPanel.getViewport().revalidate();
@@ -341,6 +342,7 @@ public class ImageViewer {
         // Create the image pane with scroll panes in the center
         imagePanel = new ImagePanel();
         scrollPanel = new JScrollPane(imagePanel);
+        scrollPanel.setViewportView(imagePanel);
         scrollPanel.setBorder(new EtchedBorder());
         contentPane.add(scrollPanel, BorderLayout.CENTER);
 
@@ -444,7 +446,7 @@ public class ImageViewer {
         item.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 historyMan.undo();
-                OFImage img = historyMan.getCurrentVersion();
+                ImageWrapper img = historyMan.getCurrentVersion();
                 currentImage = img;
                 imagePanel.setImage(img);
                 imagePanel.saveOriginal();
@@ -460,7 +462,7 @@ public class ImageViewer {
         item.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 historyMan.redo();
-                OFImage img = historyMan.getCurrentVersion();
+                ImageWrapper img = historyMan.getCurrentVersion();
                 currentImage = img;
                 imagePanel.setImage(img);
                 imagePanel.saveOriginal();

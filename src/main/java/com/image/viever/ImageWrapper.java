@@ -1,5 +1,6 @@
 package com.image.viever;import java.awt.*;
 import java.awt.image.*;
+import java.io.File;
 
 
 /**
@@ -8,28 +9,28 @@ import java.awt.image.*;
  * @author Michael Kölling and David J. Barnes.
  * @version 2.0
  */
-public class OFImage extends BufferedImage
+public class ImageWrapper extends BufferedImage
 {
+
+    private File orginalFile;
+
     /**
      * Create an OFImage copied from a BufferedImage.
      * @param image The image to copy.
      */
-    public OFImage(BufferedImage image)
+    public ImageWrapper(BufferedImage image, File orginalFile)
     {
     	super(image.getColorModel(), image.copyData(null), 
                image.isAlphaPremultiplied(), null);
+        this.orginalFile = orginalFile;
     }
 
-    /**
-     * Create an OFImage with specified size and unspecified content.
-     * @param width The width of the image.
-     * @param height The height of the image.
-     */
-    public OFImage(int width, int height)
+
+    public static ImageWrapper clone(ImageWrapper image)
     {
-        super(width, height, TYPE_INT_RGB);
+       return new ImageWrapper(image, image.getOrginalFile());
     }
-    
+
     /**
      * Set a given pixel of this image to a specified color. The
      * color is represented as an (r,g,b) value.
@@ -54,8 +55,8 @@ public class OFImage extends BufferedImage
         int pixel = getRGB(x, y);
         return new Color(pixel);
     }
-    
 
-    
-    
+    public File getOrginalFile() {
+        return orginalFile;
+    }
 }

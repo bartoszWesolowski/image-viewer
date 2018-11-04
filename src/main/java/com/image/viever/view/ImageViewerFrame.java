@@ -1,5 +1,6 @@
 package com.image.viever.view;
 
+import com.image.viever.ImageWrapper;
 import com.image.viever.controller.ZoomController;
 import com.image.viever.view.menu.MenuBar;
 
@@ -41,6 +42,10 @@ public class ImageViewerFrame extends JFrame {
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(d.width / 2 - this.getWidth() / 2, d.height / 2 - this.getHeight() / 2);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void setImage(ImageWrapper image) {
+        imageScrollPanel.setImage(image);
     }
 
     public ImageScrollPanel getImageScrollPanel() {

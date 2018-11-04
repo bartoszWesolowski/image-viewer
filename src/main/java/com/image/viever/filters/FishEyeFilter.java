@@ -1,7 +1,6 @@
 package com.image.viever.filters;
 
-import com.image.viever.OFImage;
-import com.image.viever.filters.Filter;
+import com.image.viever.ImageWrapper;
 
 /**
  * An image filter to create an effect similar to a fisheye camera lens.
@@ -30,11 +29,11 @@ public class FishEyeFilter extends Filter
      * 
      * @param  image  The image to be changed by this filter.
      */
-    public void apply(OFImage image)
+    public void apply(ImageWrapper image)
     {
         int height = image.getHeight();
         int width = image.getWidth();
-        OFImage original = new OFImage(image);
+        ImageWrapper original = ImageWrapper.clone(image);
 
         int[] xa = computeXArray(width);
         int[] ya = computeYArray(height);

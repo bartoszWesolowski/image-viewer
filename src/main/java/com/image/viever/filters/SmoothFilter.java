@@ -1,7 +1,6 @@
 package com.image.viever.filters;
 
-import com.image.viever.OFImage;
-import com.image.viever.filters.Filter;
+import com.image.viever.ImageWrapper;
 
 import java.awt.Color;
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
  */
 public class SmoothFilter extends Filter
 {
-    private OFImage original;
+    private ImageWrapper original;
     private int width;
     private int height;
     
@@ -34,9 +33,9 @@ public class SmoothFilter extends Filter
      * 
      * @param  image  The image to be changed by this filter.
      */
-    public void apply(OFImage image)
+    public void apply(ImageWrapper image)
     {
-        original = new OFImage(image);
+        original = ImageWrapper.clone(image);
         width = original.getWidth();
         height = original.getHeight();
         

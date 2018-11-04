@@ -26,4 +26,25 @@ public class MenuBar extends JMenuBar {
         add(filterMenu);
         add(helpMenu);
     }
+
+    public FileMenu getFileMenu() {
+        return fileMenu;
+    }
+
+    public EditMenu getEditMenu() {
+        return editMenu;
+    }
+
+    public ImageMenu getImageMenu() {
+        return imageMenu;
+    }
+
+    public FilterMenu getFilterMenu() {
+        return filterMenu;
+    }
+
+    @Override
+    public HelpMenu getHelpMenu() {
+        return helpMenu;
+    }
 }

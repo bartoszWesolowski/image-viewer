@@ -1,6 +1,6 @@
 package com.image.viever.filters;
 
-import com.image.viever.OFImage;
+import com.image.viever.ImageWrapper;
 
 import java.awt.Color;
 
@@ -18,7 +18,7 @@ public class EdgeFilter extends Filter
 {
     private static final int TOLERANCE = 20;
     
-    private OFImage original;
+    private ImageWrapper original;
     private int width;
     private int height;
 
@@ -36,9 +36,9 @@ public class EdgeFilter extends Filter
      * 
      * @param  image  The image to be changed by this filter.
      */
-    public void apply(OFImage image)
+    public void apply(ImageWrapper image)
     {
-        original = new OFImage(image);
+        original = ImageWrapper.clone(image);
         width = original.getWidth();
         height = original.getHeight();
         

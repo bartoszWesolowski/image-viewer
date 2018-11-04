@@ -1,6 +1,6 @@
 package com.image.viever.filters;
 
-import com.image.viever.OFImage;
+import com.image.viever.ImageWrapper;
 
 /**
  * Filter is an abstract superclass for all image filters in this
@@ -38,5 +38,5 @@ public abstract class Filter
      * 
      * @param  image  The image to be changed by this filter.
      */
-    public abstract void apply(OFImage image);
+    public abstract void apply(ImageWrapper image);
 }

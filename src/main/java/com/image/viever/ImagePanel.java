@@ -19,7 +19,7 @@ public class ImagePanel extends JComponent
 
     // An internal image buffer that is used for painting. For
     // actual display, this image buffer is then copied to screen.
-    private OFImage panelImage;
+    private ImageWrapper panelImage;
     //Saved copy of an original size image (filters are applied) - used for zooming
     private BufferedImage original;
 
@@ -39,7 +39,7 @@ public class ImagePanel extends JComponent
      * 
      * @param image  The image to be displayed.
      */
-    public void setImage(OFImage image)
+    public void setImage(ImageWrapper image)
     {
         if(image != null) {
             width = image.getWidth();
@@ -52,7 +52,7 @@ public class ImagePanel extends JComponent
      * Saves original images, gets called after opening new image
      */
     public void saveOriginal(){
-    	original=(OFImage) panelImage;
+    	original = panelImage;
     }
     
 
@@ -86,7 +86,7 @@ public class ImagePanel extends JComponent
     	g.drawImage(original, 0, 0, newWidth, newHeight, 0, 0, original.getWidth(),
     	    original.getHeight(), null);
     	g.dispose();
-    	OFImage img = new OFImage(resized);
+    	ImageWrapper img = new ImageWrapper(resized, panelImage.getOrginalFile());
     	setImage(img);
     }
     

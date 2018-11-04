@@ -3,15 +3,15 @@ package com.image.viever;import java.util.ArrayList;
 
 public class HistoryManager {
 	
-	private ArrayList<OFImage> history;
+	private ArrayList<ImageWrapper> history;
 	private int currentStep;
 	
 	public HistoryManager() {
-		history=new ArrayList<OFImage>();
+		history=new ArrayList<ImageWrapper>();
 	}
 	
-	public void add(OFImage image){
-		OFImage img=new OFImage(image);
+	public void add(ImageWrapper image){
+		ImageWrapper img= ImageWrapper.clone(image);
 		if(history.size()==0){
 			currentStep=0;
 			history.add(img);
@@ -22,7 +22,7 @@ public class HistoryManager {
 		history.add(img);
 		currentStep=currentStep+1;
 	}
-	public OFImage getCurrentVersion(){
+	public ImageWrapper getCurrentVersion(){
 		return history.get(currentStep);
 	}
 	

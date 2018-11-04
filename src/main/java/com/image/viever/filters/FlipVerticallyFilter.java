@@ -1,7 +1,6 @@
 package com.image.viever.filters;
 
-import com.image.viever.OFImage;
-import com.image.viever.filters.Filter;
+import com.image.viever.ImageWrapper;
 
 import java.awt.Color;
 
@@ -26,7 +25,7 @@ public class FlipVerticallyFilter extends Filter {
      * 
      * @param  image  The image to be changed by this filter.
      */
-    public void apply(OFImage image)
+    public void apply(ImageWrapper image)
     {
         int height = image.getHeight();
         int width = image.getWidth();

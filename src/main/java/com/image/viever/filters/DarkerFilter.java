@@ -1,6 +1,6 @@
 package com.image.viever.filters;
 
-import com.image.viever.OFImage;
+import com.image.viever.ImageWrapper;
 
 /**
  * An image filter to make the image a bit darker.
@@ -24,7 +24,7 @@ public class DarkerFilter extends Filter
      * 
      * @param  image  The image to be changed by this filter.
      */
-    public void apply(OFImage image)
+    public void apply(ImageWrapper image)
     {
         int height = image.getHeight();
         int width = image.getWidth();
