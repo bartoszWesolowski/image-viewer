@@ -11,8 +11,13 @@ import com.image.viever.model.ViewedImagesModel;
 import com.image.viever.utils.MessagesPresenter;
 import com.image.viever.utils.PathPicker;
 import com.image.viever.view.menu.FileMenu;
+import org.apache.commons.lang3.StringUtils;
+
 
 import java.io.File;
+import java.io.FilenameFilter;
+import java.util.Arrays;
+import java.util.List;
 
 public class FileMenuController {
 
@@ -42,7 +47,13 @@ public class FileMenuController {
         fileMenu.getOpenMenuItem()
                 .addActionListener( e ->
                     pathPicker.getPath(fileMenu)
-                    .ifPresent(this::setNewImage)
+                    .ifPresent(file -> {
+                        this.setNewImage(file);
+                        File[] images = file.getParentFile().listFiles(new ImageFileFilter());
+                        for (File image : images) {
+                            viewedImagesModel.addImagePath(image.getPath());
+                        }
+                    })
                 );
 
         fileMenu.getOpenExampleMenuItem()
@@ -81,6 +92,20 @@ public class FileMenuController {
         } else {
             viewedImagesModel.setCurrentImage(imageWrapper);
             EventManager.getInstance().fireEvent(new ImageLoadedEvent(imageWrapper));
+        }
+    }
+
+    static class ImageFileFilter implements FilenameFilter {
+
+        private static final List<String> EXTENSIONS = Arrays.asList(
+                "gif", "png", "jpg", "jpeg"
+        );
+
+        @Override
+        public boolean accept(final File dir, final String name) {
+            final String lowerCasedName = StringUtils.lowerCase(name);
+            return EXTENSIONS.stream()
+                    .anyMatch(extension -> StringUtils.endsWith(lowerCasedName, "." + extension));
         }
     }
 }
