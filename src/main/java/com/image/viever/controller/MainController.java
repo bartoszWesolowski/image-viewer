@@ -11,7 +11,7 @@ import com.image.viever.events.EventTypes;
 import com.image.viever.model.ViewedImagesModel;
 import com.image.viever.view.ImageViewerFrame;
 
-import java.awt.event.ComponentEvent;
+import static com.image.viever.events.EventTypes.IMAGE_LOADED;
 
 public class MainController {
 
@@ -32,18 +32,13 @@ public class MainController {
 
     private void bindEventListeners() {
         EventManager eventManager = EventManager.getInstance();
-        eventManager.add(new EventListener() {
-            @Override
-            public boolean accepts(final Event event) {
-                return event.getId() == EventTypes.IMAGE_LOADED;
-            }
+        eventManager.add(
+            IMAGE_LOADED.eventListenerForType(e -> {
 
-            @Override
-            public void handle(final Event event) {
-                ImageWrapper imageWrapper = (ImageWrapper) event.getData();
+                ImageWrapper imageWrapper = (ImageWrapper) e.getData();
                 mainFrame.displayNewImage(imageWrapper);
-            }
-        });
+            })
+        );
 
     }
     private void initControllers() {

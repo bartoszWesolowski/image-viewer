@@ -11,6 +11,8 @@ public class ViewedImagesModel {
 
     private List<String> viewedFilesPaths = new ArrayList<>();
 
+    private ImageWrapper originalImage;
+
     private ImageWrapper currentBaseImageVersion;
 
     private ImageWrapper currentlyDisplayedImageVersion;
@@ -58,6 +60,10 @@ public class ViewedImagesModel {
                 .map(currentImagePath -> viewedFilesPaths.indexOf(currentImagePath));
     }
 
+    public void setOriginalImage(ImageWrapper originalImage) {
+        this.originalImage = originalImage;
+        this.setBaseImageVersion(originalImage);
+    }
     public void setBaseImageVersion(ImageWrapper imageWrapper) {
         this.currentBaseImageVersion = imageWrapper;
         this.currentlyDisplayedImageVersion = imageWrapper;

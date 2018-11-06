@@ -1,6 +1,7 @@
 package com.image.viever.controller;
 
 import com.image.viever.controller.menu.FileMenuController;
+import com.image.viever.controller.menu.FilterMenuController;
 import com.image.viever.controller.menu.ImageMenuController;
 import com.image.viever.model.ViewedImagesModel;
 import com.image.viever.view.menu.MenuBar;
@@ -29,6 +30,9 @@ public class MenuController {
 
         ImageMenuController imageMenuController = new ImageMenuController(menuBar.getImageMenu(), viewedImagesModel);
         imageMenuController.init();
+
+        FilterMenuController filterMenuController = new FilterMenuController(menuBar.getFilterMenu(), viewedImagesModel);
+        filterMenuController.init();
 
     }
 }

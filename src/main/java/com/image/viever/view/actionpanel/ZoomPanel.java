@@ -17,7 +17,7 @@ public class ZoomPanel extends JPanel {
 
     private final JButton zoomReset = new JButton("Reset");
 
-    private final JSlider slider = new JSlider(10, 500, 100);
+    private final JSlider slider = new JSlider(10, 200, 100);
 
     public ZoomPanel() {
         setLayout(new GridLayout(0,1));

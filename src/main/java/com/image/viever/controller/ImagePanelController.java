@@ -66,6 +66,7 @@ public class ImagePanelController {
             ImageWrapper modified = (ImageWrapper) e.getData();
             viewedImages.setBaseImageVersion(modified);
             imageScrollPanel.setDisplayedImage(modified);
+            adjustImageToCurrentWindowSize(viewedImages.getCurrentBaseImageVersion());
         }));
     }
 

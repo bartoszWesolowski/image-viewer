@@ -91,7 +91,7 @@ public class FileMenuController {
         if (loadedImage == null) {
             EventManager.getInstance().fireEvent(new Event(EventTypes.INVALID_FILE_LOADED, file));
         } else {
-            viewedImagesModel.setBaseImageVersion(loadedImage);
+            viewedImagesModel.setOriginalImage(loadedImage);
             EventManager.getInstance().fireEvent(new ImageLoadedEvent(loadedImage));
         }
     }
