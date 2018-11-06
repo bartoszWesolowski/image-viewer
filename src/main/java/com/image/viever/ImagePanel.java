@@ -64,8 +64,6 @@ public class ImagePanel extends JComponent
         Graphics imageGraphics = panelImage.getGraphics();
         imageGraphics.setColor(Color.LIGHT_GRAY);
         imageGraphics.fillRect(0, 0, width, height);
-        width=360;
-        height=240;
         repaint();
     }
     /**
@@ -86,7 +84,7 @@ public class ImagePanel extends JComponent
     	g.drawImage(original, 0, 0, newWidth, newHeight, 0, 0, original.getWidth(),
     	    original.getHeight(), null);
     	g.dispose();
-    	ImageWrapper img = new ImageWrapper(resized, panelImage.getOrginalFile());
+    	ImageWrapper img = new ImageWrapper(resized, panelImage.getOriginalFile());
     	setImage(img);
     }
     

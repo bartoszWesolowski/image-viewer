@@ -12,23 +12,23 @@ import java.io.File;
 public class ImageWrapper extends BufferedImage
 {
 
-    private File orginalFile;
+    private File originalFile;
 
     /**
      * Create an OFImage copied from a BufferedImage.
      * @param image The image to copy.
      */
-    public ImageWrapper(BufferedImage image, File orginalFile)
+    public ImageWrapper(BufferedImage image, File originalFile)
     {
     	super(image.getColorModel(), image.copyData(null), 
                image.isAlphaPremultiplied(), null);
-        this.orginalFile = orginalFile;
+        this.originalFile = originalFile;
     }
 
 
     public static ImageWrapper clone(ImageWrapper image)
     {
-       return new ImageWrapper(image, image.getOrginalFile());
+       return new ImageWrapper(image, image.getOriginalFile());
     }
 
     /**
@@ -56,7 +56,7 @@ public class ImageWrapper extends BufferedImage
         return new Color(pixel);
     }
 
-    public File getOrginalFile() {
-        return orginalFile;
+    public File getOriginalFile() {
+        return originalFile;
     }
 }

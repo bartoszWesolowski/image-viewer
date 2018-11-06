@@ -62,7 +62,7 @@ public class ZoomController {
         EventManager.getInstance().add(new EventListener() {
             @Override
             public boolean accepts(final Event event) {
-                return event.getId() == EventTypes.IMAGE_CHANGED;
+                return event.getId() == EventTypes.IMAGE_LOADED;
             }
 
             @Override

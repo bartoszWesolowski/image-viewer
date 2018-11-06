@@ -229,7 +229,7 @@ public class ImageViewer {
         g.drawImage(currentImage, 0, 0, newWidth, newHeight, 0, 0, currentImage.getWidth(),
                 currentImage.getHeight(), null);
         g.dispose();
-        ImageWrapper img = new ImageWrapper(resized, currentImage.getOrginalFile());
+        ImageWrapper img = new ImageWrapper(resized, currentImage.getOriginalFile());
         currentImage = img;
         imagePanel.setImage(currentImage);
         imagePanel.saveOriginal();
@@ -260,7 +260,7 @@ public class ImageViewer {
             g.drawImage(currentImage, null, 0, 0);
             g.dispose();
 
-            currentImage = new ImageWrapper(rotated, currentImage.getOrginalFile());
+            currentImage = new ImageWrapper(rotated, currentImage.getOriginalFile());
             imagePanel.setImage(currentImage);
             imagePanel.saveOriginal();
             scrollPanel.getViewport().revalidate();

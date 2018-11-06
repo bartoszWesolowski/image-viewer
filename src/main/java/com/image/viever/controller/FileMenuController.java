@@ -5,6 +5,8 @@ import com.image.viever.ImageWrapper;
 import com.image.viever.events.Event;
 import com.image.viever.events.EventManager;
 import com.image.viever.events.EventTypes;
+import com.image.viever.events.impl.ImageClosedEvent;
+import com.image.viever.events.impl.ImageLoadedEvent;
 import com.image.viever.model.ViewedImagesModel;
 import com.image.viever.utils.PathPicker;
 import com.image.viever.view.menu.FileMenu;
@@ -16,7 +18,11 @@ import java.io.File;
  */
 public class FileMenuController {
 
+    final static int OK_EXIT_STATUS = 0;
+
     private final PathPicker pathPicker = new PathPicker();
+
+    private final EventManager eventManager = EventManager.getInstance();
 
     private FileMenu fileMenu;
 
@@ -44,6 +50,24 @@ public class FileMenuController {
                     File example = new File("monkey.jpg");
                     setNewImage(example);
                 });
+
+        fileMenu.getCloseMenuItem()
+                .addActionListener(e -> {
+                    eventManager.fireEvent(new ImageClosedEvent(viewedImagesModel.getCurrentImage()));
+                    viewedImagesModel.closeCurrentImage();
+                });
+
+        fileMenu.getQuitMenuItem()
+                .addActionListener(e -> System.exit(OK_EXIT_STATUS));
+
+        fileMenu.getSaveAsMenuItem()
+                .addActionListener(e -> {
+                    if (viewedImagesModel.hasCurrentImage()) {
+                        pathPicker.getPath(fileMenu)
+                                .ifPresent(destinationFile ->
+                                        ImageFileManager.saveImage(viewedImagesModel.getCurrentImage(), destinationFile));
+                    }
+                });
     }
 
     private void setNewImage(File file) {
@@ -52,7 +76,7 @@ public class FileMenuController {
             EventManager.getInstance().fireEvent(new Event(EventTypes.INVALID_FILE_LOADED, file));
         } else {
             viewedImagesModel.setCurrentImage(imageWrapper);
-            EventManager.getInstance().fireEvent(new Event(EventTypes.IMAGE_CHANGED, imageWrapper));
+            EventManager.getInstance().fireEvent(new ImageLoadedEvent(imageWrapper));
         }
     }
 }

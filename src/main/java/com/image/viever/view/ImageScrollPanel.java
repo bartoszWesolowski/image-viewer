@@ -17,6 +17,7 @@ public class ImageScrollPanel extends JScrollPane {
     public ImageScrollPanel(final ImagePanel imagePanel) {
         super(imagePanel);
         this.imagePanel = imagePanel;
+        setBorder(new EtchedBorder());
     }
 
     public ImageScrollPanel() {

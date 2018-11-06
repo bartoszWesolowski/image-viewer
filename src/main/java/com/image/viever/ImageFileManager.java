@@ -32,6 +32,7 @@ public class ImageFileManager
      */
     public static ImageWrapper loadImage(File imageFile)
     {
+        //TODO: introduce exception instead of null value returned ??
         try {
             BufferedImage image = ImageIO.read(imageFile);
             if(image == null || (image.getWidth(null) < 0)) {
