@@ -1,6 +1,8 @@
 package com.image.viever.controller;
 
 import com.image.viever.ImageWrapper;
+import com.image.viever.controller.actionpanel.ActionPanelController;
+import com.image.viever.controller.actionpanel.ZoomController;
 import com.image.viever.controller.eventlisteners.ComponentResizedListener;
 import com.image.viever.events.Event;
 import com.image.viever.events.EventListener;
@@ -10,7 +12,6 @@ import com.image.viever.model.ViewedImagesModel;
 import com.image.viever.view.ImageViewerFrame;
 
 import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 
 public class MainController {
 
@@ -55,8 +56,8 @@ public class MainController {
         ImagePanelController imagePanelController = new ImagePanelController(mainFrame.getImageScrollPanel());
         imagePanelController.init();
 
-        ZoomController zoomController = new ZoomController(mainFrame);
-        zoomController.init();
+        ActionPanelController actionPanelController = new ActionPanelController(mainFrame.getActionPanel(), viewedImages);
+        actionPanelController.init();
 
         MenuController menuController = new MenuController(mainFrame.getMenu(), viewedImages);
         menuController.init();

@@ -1,6 +1,8 @@
 package com.image.viever.view;
 
 import com.image.viever.ImageWrapper;
+import com.image.viever.view.actionpanel.ActionPanel;
+import com.image.viever.view.actionpanel.ZoomPanel;
 import com.image.viever.view.menu.MenuBar;
 
 import javax.swing.*;
@@ -17,7 +19,7 @@ public class ImageViewerFrame extends JFrame {
 
     private JLabel statusLabel = new JLabel("Version 3.1");
 
-    private ZoomPanel zoomPanel = new ZoomPanel();
+    private ActionPanel actionPanel = new ActionPanel();
 
     private JPanel contentPanel;
 
@@ -32,7 +34,7 @@ public class ImageViewerFrame extends JFrame {
         this.contentPanel.add(imageScrollPanel, BorderLayout.CENTER);
         this.contentPanel.add(fileNameLabel, BorderLayout.NORTH);
         this.contentPanel.add(statusLabel, BorderLayout.SOUTH);
-        this.contentPanel.add(zoomPanel, BorderLayout.EAST);
+        this.contentPanel.add(actionPanel, BorderLayout.EAST);
 
 
         this.pack();
@@ -63,8 +65,8 @@ public class ImageViewerFrame extends JFrame {
         return statusLabel;
     }
 
-    public ZoomPanel getZoomPanel() {
-        return zoomPanel;
+    public ActionPanel getActionPanel() {
+        return actionPanel;
     }
 
     public JPanel getContentPanel() {

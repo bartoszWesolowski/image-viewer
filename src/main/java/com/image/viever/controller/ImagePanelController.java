@@ -6,6 +6,9 @@ import com.image.viever.events.EventManager;
 import com.image.viever.events.EventTypes;
 import com.image.viever.view.ImageScrollPanel;
 
+import static com.image.viever.events.EventTypes.IMAGE_CLOSED;
+import static com.image.viever.events.EventTypes.ZOOM_CHANGED;
+
 public class ImagePanelController {
 
     private final EventManager eventManager = EventManager.getInstance();
@@ -17,16 +20,12 @@ public class ImagePanelController {
     }
 
     public void init() {
-        eventManager.add(new EventListener() {
-            @Override
-            public boolean accepts(final Event event) {
-                return event.getId() == EventTypes.IMAGE_CLOSED;
-            }
-
-            @Override
-            public void handle(final Event event) {
-                imageScrollPanel.clearImage();
-            }
-        });
+        eventManager.add(
+                IMAGE_CLOSED.eventListenerForType(e -> imageScrollPanel.clearImage())
+        );
+        eventManager.add(ZOOM_CHANGED.eventListenerForType(e -> {
+            int zoom = (int) e.getData();
+            imageScrollPanel.updateZoom(zoom);
+        }));
     }
 }

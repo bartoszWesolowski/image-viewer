@@ -1,6 +1,6 @@
 package com.image.viever;
 
-import com.image.viever.controller.ZoomController;
+import com.image.viever.controller.actionpanel.ZoomController;
 import com.image.viever.filters.DarkerFilter;
 import com.image.viever.filters.EdgeFilter;
 import com.image.viever.filters.Filter;
@@ -15,7 +15,7 @@ import com.image.viever.filters.SmoothFilter;
 import com.image.viever.filters.SolarizeFilter;
 import com.image.viever.filters.ThresholdFilter;
 import com.image.viever.view.ImageScrollPanel;
-import com.image.viever.view.ZoomPanel;
+import com.image.viever.view.actionpanel.ZoomPanel;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -354,11 +354,11 @@ public class ImageViewer {
         contentPane.add(statusLabel, BorderLayout.SOUTH);
 
         //Create a panel with two buttons, a slider and a label for zooming on right
-        ZoomPanel zoomPanel = new ZoomPanel();
-        ZoomController zoomController = new ZoomController(zoomPanel, new ImageScrollPanel(imagePanel));
-        zoomController.init();
+        //ZoomPanel zoomPanel = new ZoomPanel();
+        ///ZoomController zoomController = new ZoomController(zoomPanel, new ImageScrollPanel(imagePanel));
+        ///zoomController.init();
 
-        contentPane.add(zoomPanel, BorderLayout.EAST);
+       // contentPane.add(zoomPanel, BorderLayout.EAST);
 
 
         // building is done - arrange the components      
