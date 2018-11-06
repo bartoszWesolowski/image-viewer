@@ -8,6 +8,7 @@ import com.image.viever.events.EventTypes;
 import com.image.viever.events.impl.ImageClosedEvent;
 import com.image.viever.events.impl.ImageLoadedEvent;
 import com.image.viever.model.ViewedImagesModel;
+import com.image.viever.utils.MessagesPresenter;
 import com.image.viever.utils.PathPicker;
 import com.image.viever.view.menu.FileMenu;
 
@@ -28,9 +29,12 @@ public class FileMenuController {
 
     private ViewedImagesModel viewedImagesModel;
 
+    private MessagesPresenter messagesPresenter;
+
     public FileMenuController(final FileMenu editMenu, final ViewedImagesModel viewedImagesModel) {
         this.fileMenu = editMenu;
         this.viewedImagesModel = viewedImagesModel;
+        this.messagesPresenter = new MessagesPresenter(editMenu);
     }
 
     public void init() {
@@ -64,8 +68,12 @@ public class FileMenuController {
                 .addActionListener(e -> {
                     if (viewedImagesModel.hasCurrentImage()) {
                         pathPicker.getPath(fileMenu)
-                                .ifPresent(destinationFile ->
-                                        ImageFileManager.saveImage(viewedImagesModel.getCurrentImage(), destinationFile));
+                                .ifPresent(destinationFile -> {
+                                    ImageFileManager.saveImage(viewedImagesModel.getCurrentImage(), destinationFile);
+                                    messagesPresenter.showInfoDialog("File saved", "Saved image to: " + destinationFile.getAbsolutePath());
+                                });
+                    } else {
+                        messagesPresenter.showWarningDialog("File not saved", "There is no image currently available for saving.");
                     }
                 });
     }
