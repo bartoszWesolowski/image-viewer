@@ -11,17 +11,17 @@ public class ViewedImagesModel {
 
     private List<String> viewedFilesPaths = new ArrayList<>();
 
-    private ImageWrapper currentOriginalImage;
+    private ImageWrapper currentBaseImageVersion;
 
     private ImageWrapper currentlyDisplayedImageVersion;
 
     public void closeCurrentImage() {
-        this.currentOriginalImage = null;
+        this.currentBaseImageVersion = null;
         this.currentlyDisplayedImageVersion = null;
     }
 
     public boolean hasCurrentImage() {
-        return currentOriginalImage != null;
+        return currentBaseImageVersion != null;
     }
 
     public void clearViewedFiles() {
@@ -51,15 +51,15 @@ public class ViewedImagesModel {
     }
 
     private Optional<Integer> getCurrentImagePathIndex() {
-        return Optional.ofNullable(currentOriginalImage)
+        return Optional.ofNullable(currentBaseImageVersion)
                 .map(imageWrapper -> imageWrapper.getOriginalFile())
                 .map(file -> file.getAbsolutePath())
                 .filter(currentImagePath -> viewedFilesPaths.contains(currentImagePath))
                 .map(currentImagePath -> viewedFilesPaths.indexOf(currentImagePath));
     }
 
-    public void setCurrentOriginalImage(ImageWrapper imageWrapper) {
-        this.currentOriginalImage = imageWrapper;
+    public void setBaseImageVersion(ImageWrapper imageWrapper) {
+        this.currentBaseImageVersion = imageWrapper;
         this.currentlyDisplayedImageVersion = imageWrapper;
     }
 
@@ -67,8 +67,8 @@ public class ViewedImagesModel {
         this.currentlyDisplayedImageVersion = currentlyDisplayedImageVersion;
     }
 
-    public ImageWrapper getCurrentOriginalImage() {
-        return currentOriginalImage;
+    public ImageWrapper getCurrentBaseImageVersion() {
+        return currentBaseImageVersion;
     }
 
     public ImageWrapper getCurrentlyDisplayedImageVersion() {

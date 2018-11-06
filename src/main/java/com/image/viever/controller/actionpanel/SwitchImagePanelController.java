@@ -11,7 +11,6 @@ import java.util.Optional;
 
 public class SwitchImagePanelController {
 
-
     private SwitchImagePanel switchImagePanel;
 
     private ViewedImagesModel viewedImages;
@@ -38,7 +37,7 @@ public class SwitchImagePanelController {
             .map(File::new)
             .map(file -> ImageFileManager.loadImage(file))
             .ifPresent(imageWrapper -> {
-                viewedImages.setCurrentOriginalImage(imageWrapper);
+                viewedImages.setBaseImageVersion(imageWrapper);
                 EventManager.getInstance().fireEvent(new ImageLoadedEvent(imageWrapper));
             });
     }

@@ -1,5 +1,7 @@
 package com.image.viever.controller;
 
+import com.image.viever.controller.menu.FileMenuController;
+import com.image.viever.controller.menu.ImageMenuController;
 import com.image.viever.model.ViewedImagesModel;
 import com.image.viever.view.menu.MenuBar;
 
@@ -24,6 +26,9 @@ public class MenuController {
     private void setActionListeners() {
         FileMenuController fileMenuController = new FileMenuController(menuBar.getFileMenu(), viewedImagesModel);
         fileMenuController.init();
+
+        ImageMenuController imageMenuController = new ImageMenuController(menuBar.getImageMenu(), viewedImagesModel);
+        imageMenuController.init();
 
     }
 }

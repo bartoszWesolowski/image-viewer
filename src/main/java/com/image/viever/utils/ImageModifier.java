@@ -1,6 +1,7 @@
 package com.image.viever.utils;
 
 import com.image.viever.ImageWrapper;
+import com.image.viever.filters.Filter;
 import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
@@ -52,5 +53,28 @@ public class ImageModifier {
             LOGGER.error("Failed to resize image.", e);
         }
         return resized;
+    }
+
+    public ImageWrapper rotate(ImageWrapper original, int angle) {
+        ImageWrapper rotated = original;
+        try {
+
+            StopWatch stopWatch = StopWatch.createStarted();
+            BufferedImage bufferedImage = Thumbnails.of(original)
+                    .size(original.getWidth(), original.getHeight())
+                    .rotate(angle)
+                    .asBufferedImage();
+            LOGGER.debug("Rotating image took: {} ms." + stopWatch.getTime());
+            rotated = new ImageWrapper(bufferedImage, original.getOriginalFile());
+        } catch (IOException e) {
+            LOGGER.error("Failed to rotate image.", e);
+        }
+        return rotated;
+    }
+
+    public ImageWrapper applyFilter(ImageWrapper imageToModify, Filter imageFilter) {
+        ImageWrapper clone = ImageWrapper.clone(imageToModify);
+        imageFilter.apply(clone);
+        return clone;
     }
 }

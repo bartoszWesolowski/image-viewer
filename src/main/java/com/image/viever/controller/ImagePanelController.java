@@ -11,6 +11,7 @@ import java.awt.event.ComponentEvent;
 
 import static com.image.viever.events.EventTypes.IMAGE_CLOSED;
 import static com.image.viever.events.EventTypes.IMAGE_LOADED;
+import static com.image.viever.events.EventTypes.IMAGE_MODIFIED;
 import static com.image.viever.events.EventTypes.ZOOM_CHANGED;
 
 public class ImagePanelController {
@@ -34,7 +35,7 @@ public class ImagePanelController {
         imageScrollPanel.addComponentListener(new ComponentResizedListener() {
             @Override
             public void componentResized(final ComponentEvent e) {
-                adjustImageToCurrentWindowSize(viewedImages.getCurrentOriginalImage());
+                adjustImageToCurrentWindowSize(viewedImages.getCurrentBaseImageVersion());
             }
         });
 
@@ -48,17 +49,23 @@ public class ImagePanelController {
         eventManager.add(IMAGE_LOADED.eventListenerForType(e -> {
             ImageWrapper loadedImage = (ImageWrapper) e.getData();
             adjustImageToCurrentWindowSize(loadedImage);
-
         }));
 
         eventManager.add(ZOOM_CHANGED.eventListenerForType(e -> {
             if(viewedImages.hasCurrentImage()) {
                 int zoom = (int) e.getData();
                 double scale = zoom / 100.0;
-                ImageWrapper scaled = imageModifier.resize(viewedImages.getCurrentOriginalImage(), scale);
+                ImageWrapper scaled = imageModifier.resize(viewedImages.getCurrentBaseImageVersion(), scale);
                 viewedImages.setCurrentlyDisplayedImageVersion(scaled);
                 imageScrollPanel.setDisplayedImage(scaled);
             }
+        }));
+
+
+        eventManager.add(IMAGE_MODIFIED.eventListenerForType(e -> {
+            ImageWrapper modified = (ImageWrapper) e.getData();
+            viewedImages.setBaseImageVersion(modified);
+            imageScrollPanel.setDisplayedImage(modified);
         }));
     }
 

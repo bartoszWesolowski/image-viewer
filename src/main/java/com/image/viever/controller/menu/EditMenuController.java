@@ -1,4 +1,4 @@
-package com.image.viever.controller;
+package com.image.viever.controller.menu;
 
 import com.image.viever.model.ViewedImagesModel;
 import com.image.viever.view.menu.EditMenu;

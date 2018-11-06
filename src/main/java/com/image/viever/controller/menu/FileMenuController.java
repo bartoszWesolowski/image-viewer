@@ -1,4 +1,4 @@
-package com.image.viever.controller;
+package com.image.viever.controller.menu;
 
 import com.image.viever.ImageFileManager;
 import com.image.viever.ImageWrapper;
@@ -49,6 +49,7 @@ public class FileMenuController {
                     pathPicker.getPath(fileMenu)
                     .ifPresent(file -> {
                         this.setNewImage(file);
+                        viewedImagesModel.clearViewedFiles();
                         File[] images = file.getParentFile().listFiles(new ImageFileFilter());
                         for (File image : images) {
                             viewedImagesModel.addImagePath(image.getPath());
@@ -64,7 +65,7 @@ public class FileMenuController {
 
         fileMenu.getCloseMenuItem()
                 .addActionListener(e -> {
-                    eventManager.fireEvent(new ImageClosedEvent(viewedImagesModel.getCurrentOriginalImage()));
+                    eventManager.fireEvent(new ImageClosedEvent(viewedImagesModel.getCurrentBaseImageVersion()));
                     viewedImagesModel.closeCurrentImage();
                 });
 
@@ -76,7 +77,7 @@ public class FileMenuController {
                     if (viewedImagesModel.hasCurrentImage()) {
                         pathPicker.getPath(fileMenu)
                                 .ifPresent(destinationFile -> {
-                                    ImageFileManager.saveImage(viewedImagesModel.getCurrentOriginalImage(), destinationFile);
+                                    ImageFileManager.saveImage(viewedImagesModel.getCurrentBaseImageVersion(), destinationFile);
                                     messagesPresenter.showInfoDialog("File saved", "Saved image to: " + destinationFile.getAbsolutePath());
                                 });
                     } else {
@@ -86,12 +87,12 @@ public class FileMenuController {
     }
 
     private void setNewImage(File file) {
-        ImageWrapper imageWrapper = ImageFileManager.loadImage(file);
-        if (imageWrapper == null) {
+        ImageWrapper loadedImage = ImageFileManager.loadImage(file);
+        if (loadedImage == null) {
             EventManager.getInstance().fireEvent(new Event(EventTypes.INVALID_FILE_LOADED, file));
         } else {
-            viewedImagesModel.setCurrentOriginalImage(imageWrapper);
-            EventManager.getInstance().fireEvent(new ImageLoadedEvent(imageWrapper));
+            viewedImagesModel.setBaseImageVersion(loadedImage);
+            EventManager.getInstance().fireEvent(new ImageLoadedEvent(loadedImage));
         }
     }
 
