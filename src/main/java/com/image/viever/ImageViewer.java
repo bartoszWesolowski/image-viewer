@@ -1,6 +1,5 @@
 package com.image.viever;
 
-import com.image.viever.controller.actionpanel.ZoomController;
 import com.image.viever.filters.DarkerFilter;
 import com.image.viever.filters.EdgeFilter;
 import com.image.viever.filters.Filter;
@@ -14,8 +13,7 @@ import com.image.viever.filters.PixelizeFilter;
 import com.image.viever.filters.SmoothFilter;
 import com.image.viever.filters.SolarizeFilter;
 import com.image.viever.filters.ThresholdFilter;
-import com.image.viever.view.ImageScrollPanel;
-import com.image.viever.view.actionpanel.ZoomPanel;
+import com.image.viever.view.ImagePanel;
 
 import java.awt.*;
 import java.awt.event.*;

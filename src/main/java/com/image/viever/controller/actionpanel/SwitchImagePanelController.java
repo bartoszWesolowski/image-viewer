@@ -38,7 +38,7 @@ public class SwitchImagePanelController {
             .map(File::new)
             .map(file -> ImageFileManager.loadImage(file))
             .ifPresent(imageWrapper -> {
-                viewedImages.setCurrentImage(imageWrapper);
+                viewedImages.setCurrentOriginalImage(imageWrapper);
                 EventManager.getInstance().fireEvent(new ImageLoadedEvent(imageWrapper));
             });
     }

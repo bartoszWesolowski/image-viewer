@@ -4,7 +4,6 @@ package com.image.viever.model;
 import com.image.viever.ImageWrapper;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,14 +11,21 @@ public class ViewedImagesModel {
 
     private List<String> viewedFilesPaths = new ArrayList<>();
 
-    private ImageWrapper currentImage;
+    private ImageWrapper currentOriginalImage;
+
+    private ImageWrapper currentlyDisplayedImageVersion;
 
     public void closeCurrentImage() {
-        //TODO: implement close image operation
+        this.currentOriginalImage = null;
+        this.currentlyDisplayedImageVersion = null;
     }
 
     public boolean hasCurrentImage() {
-        return currentImage != null;
+        return currentOriginalImage != null;
+    }
+
+    public void clearViewedFiles() {
+        viewedFilesPaths.clear();
     }
 
     public void addImagePath(String path) {
@@ -45,19 +51,27 @@ public class ViewedImagesModel {
     }
 
     private Optional<Integer> getCurrentImagePathIndex() {
-        return Optional.ofNullable(currentImage)
+        return Optional.ofNullable(currentOriginalImage)
                 .map(imageWrapper -> imageWrapper.getOriginalFile())
                 .map(file -> file.getAbsolutePath())
                 .filter(currentImagePath -> viewedFilesPaths.contains(currentImagePath))
                 .map(currentImagePath -> viewedFilesPaths.indexOf(currentImagePath));
     }
 
-    public void setCurrentImage(ImageWrapper imageWrapper) {
-        this.currentImage = imageWrapper;
+    public void setCurrentOriginalImage(ImageWrapper imageWrapper) {
+        this.currentOriginalImage = imageWrapper;
+        this.currentlyDisplayedImageVersion = imageWrapper;
     }
 
-    public ImageWrapper getCurrentImage() {
-        return currentImage;
+    public void setCurrentlyDisplayedImageVersion(final ImageWrapper currentlyDisplayedImageVersion) {
+        this.currentlyDisplayedImageVersion = currentlyDisplayedImageVersion;
     }
 
+    public ImageWrapper getCurrentOriginalImage() {
+        return currentOriginalImage;
+    }
+
+    public ImageWrapper getCurrentlyDisplayedImageVersion() {
+        return currentlyDisplayedImageVersion;
+    }
 }

@@ -45,15 +45,9 @@ public class MainController {
             }
         });
 
-        mainFrame.addComponentListener(new ComponentResizedListener() {
-            @Override
-            public void componentResized(final ComponentEvent e) {
-                mainFrame.getImageScrollPanel().adjustImageToCurrentWindowSize();
-            }
-        });
     }
     private void initControllers() {
-        ImagePanelController imagePanelController = new ImagePanelController(mainFrame.getImageScrollPanel());
+        ImagePanelController imagePanelController = new ImagePanelController(mainFrame.getImageScrollPanel(), viewedImages);
         imagePanelController.init();
 
         ActionPanelController actionPanelController = new ActionPanelController(mainFrame.getActionPanel(), viewedImages);

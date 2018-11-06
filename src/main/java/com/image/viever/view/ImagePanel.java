@@ -1,6 +1,6 @@
-package com.image.viever;
+package com.image.viever.view;
 
-import net.coobird.thumbnailator.Thumbnailator;
+import com.image.viever.ImageWrapper;
 import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import javax.swing.*;
-import java.awt.geom.Point2D;
 import java.awt.image.*;
 import java.io.IOException;
 import java.util.stream.Stream;
@@ -25,7 +24,8 @@ import java.util.stream.Stream;
 @SuppressWarnings("serial")
 //TODO: Refacor this class (so many null checks...)
 public class ImagePanel extends JComponent {
-    public static final Logger LOGGER = LoggerFactory.getLogger(ImagePanel.class.getName());
+
+    public static final Logger LOGGER = LoggerFactory.getLogger(ImagePanel.class);
 
     // The current width and height of this panel
     private int width, height;
@@ -33,8 +33,6 @@ public class ImagePanel extends JComponent {
     // An internal image buffer that is used for painting. For
     // actual display, this image buffer is then copied to screen.
     private ImageWrapper currentlyDisplayedImage;
-    //Saved copy of an originalImage size image (filters are applied) - used for zooming
-    private ImageWrapper originalImage;
 
     /**
      * Create a new, empty ImagePanel.
@@ -50,28 +48,19 @@ public class ImagePanel extends JComponent {
      * @param image The image to be displayed.
      */
     public void modifyDisplayedImage(ImageWrapper image) {
-        if (currentlyDisplayedImage != null && image != null) {
-            currentlyDisplayedImage.flush();
+        if (image != null) {
             currentlyDisplayedImage = image;
+            width = currentlyDisplayedImage.getWidth();
+            height = currentlyDisplayedImage.getHeight();
             repaint();
         }
-    }
-
-    public void displayNewImage(ImageWrapper newImage) {
-        Stream.of(originalImage, currentlyDisplayedImage)
-                .filter(img -> img != null)
-                .forEach(img -> img.flush());
-        this.originalImage = newImage;
-        this.currentlyDisplayedImage = this.originalImageToSizeOfCurrentImagePanel();
-        this.modifyDisplayedImage(currentlyDisplayedImage);
-
     }
 
     /**
      * Saves originalImage images, gets called after opening new image
      */
     public void saveOriginal() {
-        originalImage = currentlyDisplayedImage;
+        //TODO:remove
     }
 
 
@@ -85,60 +74,9 @@ public class ImagePanel extends JComponent {
             imageGraphics.fillRect(0, 0, width, height);
             currentlyDisplayedImage.flush();
             currentlyDisplayedImage = null;
-            originalImage = null;
             repaint();
         }
     }
-
-    /**
-     * creates a resized instance of the originalImage picture and displays it
-     *
-     * @param factor
-     */
-    public void zoom(double factor) {
-        if (currentlyDisplayedImage == null) {
-            return;
-        }
-        try {
-            StopWatch stopWatch = StopWatch.createStarted();
-            BufferedImage bufferedImage = Thumbnails.of(originalImage)
-                    .scale(factor / 100.0)
-                    .asBufferedImage();
-            LOGGER.debug("Zoom operation took: {} ms" + stopWatch.getTime());
-            ImageWrapper img = new ImageWrapper(bufferedImage, originalImage.getOriginalFile());
-            modifyDisplayedImage(img);
-        } catch (IOException e) {
-            LOGGER.error("Failed to zoom image", e);
-        }
-    }
-
-    public void adjustToCurrentImagePanelSize() {
-        this.currentlyDisplayedImage = this.originalImageToSizeOfCurrentImagePanel();
-        this.modifyDisplayedImage(currentlyDisplayedImage);
-    }
-
-    //TODO:Resizing should work better and should be faster! Fix this.
-    private ImageWrapper originalImageToSizeOfCurrentImagePanel() {
-        if (originalImage != null) {
-            try {
-                int smallerHeight = getHeight() < originalImage.getHeight() ? getHeight() : originalImage.getHeight();
-                int smallerWidth = getWidth() < originalImage.getWidth() ? getWidth() : originalImage.getWidth();
-
-                StopWatch stopWatch = StopWatch.createStarted();
-                BufferedImage bufferedImage = Thumbnails.of(originalImage)
-                        .size(smallerWidth, smallerHeight)
-                        .keepAspectRatio(true)
-                        .asBufferedImage();
-                LOGGER.debug("Rescaling image to the size of panel took: {} ms" + stopWatch.getTime());
-                ImageWrapper imageWrapper = new ImageWrapper(bufferedImage, originalImage.getOriginalFile());
-                return imageWrapper;
-            } catch (IOException e) {
-                LOGGER.error("Failed to resize image.", e);
-            }
-        }
-        return null;
-    }
-
     /**
      * Tell the layout manager how big we would like to be.
      * (This method gets called by layout managers for placing
@@ -167,10 +105,6 @@ public class ImagePanel extends JComponent {
         if (currentlyDisplayedImage != null) {
             g.drawImage(currentlyDisplayedImage, centered.x, centered.y, null);
         }
-    }
-
-    private void displayOriginal() {
-        this.modifyDisplayedImage(this.originalImage);
     }
 
     private Point getPointForCenetredImageDraw() {

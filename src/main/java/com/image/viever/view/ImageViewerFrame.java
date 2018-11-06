@@ -8,6 +8,7 @@ import com.image.viever.view.menu.MenuBar;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.io.File;
 
 public class ImageViewerFrame extends JFrame {
 
@@ -46,7 +47,14 @@ public class ImageViewerFrame extends JFrame {
     }
 
     public void displayNewImage(ImageWrapper image) {
-        imageScrollPanel.displayNewImage(image);
+        File originalFile = image.getOriginalFile();
+        if (originalFile != null) {
+            double totalSpaceInKiloBytes = originalFile.length() / 1000.0;
+            double totalSpaceInMb = totalSpaceInKiloBytes * Math.pow(10, -3);
+            String format = String.format("File: %s, %s KB, %s MB", originalFile.getAbsolutePath(), totalSpaceInKiloBytes, totalSpaceInMb);
+            fileNameLabel.setText(format);
+
+        }
     }
 
     public ImageScrollPanel getImageScrollPanel() {

@@ -64,7 +64,7 @@ public class FileMenuController {
 
         fileMenu.getCloseMenuItem()
                 .addActionListener(e -> {
-                    eventManager.fireEvent(new ImageClosedEvent(viewedImagesModel.getCurrentImage()));
+                    eventManager.fireEvent(new ImageClosedEvent(viewedImagesModel.getCurrentOriginalImage()));
                     viewedImagesModel.closeCurrentImage();
                 });
 
@@ -76,7 +76,7 @@ public class FileMenuController {
                     if (viewedImagesModel.hasCurrentImage()) {
                         pathPicker.getPath(fileMenu)
                                 .ifPresent(destinationFile -> {
-                                    ImageFileManager.saveImage(viewedImagesModel.getCurrentImage(), destinationFile);
+                                    ImageFileManager.saveImage(viewedImagesModel.getCurrentOriginalImage(), destinationFile);
                                     messagesPresenter.showInfoDialog("File saved", "Saved image to: " + destinationFile.getAbsolutePath());
                                 });
                     } else {
@@ -90,7 +90,7 @@ public class FileMenuController {
         if (imageWrapper == null) {
             EventManager.getInstance().fireEvent(new Event(EventTypes.INVALID_FILE_LOADED, file));
         } else {
-            viewedImagesModel.setCurrentImage(imageWrapper);
+            viewedImagesModel.setCurrentOriginalImage(imageWrapper);
             EventManager.getInstance().fireEvent(new ImageLoadedEvent(imageWrapper));
         }
     }
