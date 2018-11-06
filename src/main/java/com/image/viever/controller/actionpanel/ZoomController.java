@@ -8,10 +8,13 @@ import com.image.viever.events.impl.ZoomChangedEvent;
 import com.image.viever.view.ImageViewerFrame;
 import com.image.viever.view.actionpanel.ZoomPanel;
 import com.image.viever.view.ImageScrollPanel;
+import org.apache.commons.lang3.Range;
 
 public class ZoomController {
 
     private static final int ZOOM_STEP = 10;
+
+    private Range<Integer> ZOOM_RANGE = Range.between(10, 200);
 
     private static final int ZOOM_INITIAL_VALUE = 100;
 
@@ -26,23 +29,19 @@ public class ZoomController {
     public void init() {
 
         zoomPanel.getZoomInButton().addActionListener(e -> {
-            zoomValue += ZOOM_STEP;
-            updateZoom();
+            updateZoom(zoomValue + ZOOM_STEP);
         });
 
         zoomPanel.getZoomOutButton().addActionListener(e -> {
-            zoomValue -= ZOOM_STEP;
-            updateZoom();
+            updateZoom(zoomValue - ZOOM_STEP);
         });
 
         zoomPanel.getZoomReset().addActionListener(e -> {
-            zoomValue = ZOOM_INITIAL_VALUE;
-            updateZoom();
+            updateZoom(ZOOM_INITIAL_VALUE);
         });
 
         zoomPanel.getSlider().addChangeListener(e -> {
-            zoomValue = zoomPanel.getSlider().getValue();
-            updateZoom();
+            updateZoom(zoomPanel.getSlider().getValue());
         });
     }
 
@@ -60,9 +59,12 @@ public class ZoomController {
         });
     }
 
-    private void updateZoom() {
-        zoomPanel.setZoom(zoomValue);
-        EventManager.getInstance().fireEvent(new ZoomChangedEvent(zoomValue));
+    private void updateZoom(int newValue) {
+        if (ZOOM_RANGE.contains(newValue)) {
+            zoomValue = newValue;
+            zoomPanel.setZoom(zoomValue);
+            EventManager.getInstance().fireEvent(new ZoomChangedEvent(zoomValue));
+        }
     }
 
 }
