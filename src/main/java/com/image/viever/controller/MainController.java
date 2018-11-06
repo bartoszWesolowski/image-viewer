@@ -1,12 +1,16 @@
 package com.image.viever.controller;
 
 import com.image.viever.ImageWrapper;
+import com.image.viever.controller.eventlisteners.ComponentResizedListener;
 import com.image.viever.events.Event;
 import com.image.viever.events.EventListener;
 import com.image.viever.events.EventManager;
 import com.image.viever.events.EventTypes;
 import com.image.viever.model.ViewedImagesModel;
 import com.image.viever.view.ImageViewerFrame;
+
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 public class MainController {
 
@@ -36,11 +40,21 @@ public class MainController {
             @Override
             public void handle(final Event event) {
                 ImageWrapper imageWrapper = (ImageWrapper) event.getData();
-                mainFrame.setImage(imageWrapper);
+                mainFrame.displayNewImage(imageWrapper);
+            }
+        });
+
+        mainFrame.addComponentListener(new ComponentResizedListener() {
+            @Override
+            public void componentResized(final ComponentEvent e) {
+                mainFrame.getImageScrollPanel().adjustImageToCurrentWindowSize();
             }
         });
     }
     private void initControllers() {
+        ImagePanelController imagePanelController = new ImagePanelController(mainFrame.getImageScrollPanel());
+        imagePanelController.init();
+
         ZoomController zoomController = new ZoomController(mainFrame);
         zoomController.init();
 

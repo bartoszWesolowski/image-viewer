@@ -111,7 +111,7 @@ public class ImageViewer {
         }
         historyMan.eraseAll();
         historyMan.add(currentImage);
-        imagePanel.setImage(currentImage);
+        imagePanel.modifyDisplayedImage(currentImage);
         imagePanel.saveOriginal();
         showFilename(selectedFile.getPath());
         showStatus("File loaded.");
@@ -130,7 +130,7 @@ public class ImageViewer {
         currentImage = ImageFileManager.loadImage(new File("monkey.jpg"));
         historyMan.eraseAll();
         historyMan.add(currentImage);
-        imagePanel.setImage(currentImage);
+        imagePanel.modifyDisplayedImage(currentImage);
         imagePanel.saveOriginal();
         showStatus("File loaded.");
         showFilename("Monkey bussiness!");
@@ -191,7 +191,7 @@ public class ImageViewer {
             filter.apply(filtered);
             showStatus("Applied: " + filter.getName());
             currentImage = filtered;
-            imagePanel.setImage(currentImage);
+            imagePanel.modifyDisplayedImage(currentImage);
             imagePanel.saveOriginal();
             scrollPanel.getViewport().revalidate();
             historyMan.add(currentImage);
@@ -231,7 +231,7 @@ public class ImageViewer {
         g.dispose();
         ImageWrapper img = new ImageWrapper(resized, currentImage.getOriginalFile());
         currentImage = img;
-        imagePanel.setImage(currentImage);
+        imagePanel.modifyDisplayedImage(currentImage);
         imagePanel.saveOriginal();
         scrollPanel.getViewport().revalidate();
         historyMan.add(currentImage);
@@ -261,7 +261,7 @@ public class ImageViewer {
             g.dispose();
 
             currentImage = new ImageWrapper(rotated, currentImage.getOriginalFile());
-            imagePanel.setImage(currentImage);
+            imagePanel.modifyDisplayedImage(currentImage);
             imagePanel.saveOriginal();
             scrollPanel.getViewport().revalidate();
             historyMan.add(currentImage);
@@ -448,7 +448,7 @@ public class ImageViewer {
                 historyMan.undo();
                 ImageWrapper img = historyMan.getCurrentVersion();
                 currentImage = img;
-                imagePanel.setImage(img);
+                imagePanel.modifyDisplayedImage(img);
                 imagePanel.saveOriginal();
                 refreshFrame();
                 scrollPanel.getViewport().revalidate();
@@ -464,7 +464,7 @@ public class ImageViewer {
                 historyMan.redo();
                 ImageWrapper img = historyMan.getCurrentVersion();
                 currentImage = img;
-                imagePanel.setImage(img);
+                imagePanel.modifyDisplayedImage(img);
                 imagePanel.saveOriginal();
                 refreshFrame();
                 scrollPanel.getViewport().revalidate();

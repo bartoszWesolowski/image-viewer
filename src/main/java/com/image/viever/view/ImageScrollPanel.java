@@ -5,7 +5,6 @@ import com.image.viever.ImageWrapper;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
-import java.awt.*;
 
 /**
  * Created by Bartosz Wesolowski on 04.11.2018.
@@ -30,8 +29,15 @@ public class ImageScrollPanel extends JScrollPane {
         getViewport().revalidate();
     }
 
-    public void setImage(ImageWrapper imageWrapper) {
-        imagePanel.setImage(imageWrapper);
-        imagePanel.saveOriginal();
+    public void adjustImageToCurrentWindowSize() {
+        imagePanel.adjustToCurrentImagePanelSize();
+    }
+
+    public void displayNewImage(ImageWrapper imageWrapper) {
+        imagePanel.displayNewImage(imageWrapper);
+    }
+
+    public void clearImage() {
+        imagePanel.clearImage();
     }
 }

@@ -9,6 +9,7 @@ import java.io.File;
  * @author Michael Kölling and David J. Barnes.
  * @version 2.0
  */
+//TODO:Check using Image instead of Buffered Image
 public class ImageWrapper extends BufferedImage
 {
 

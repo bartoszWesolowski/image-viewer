@@ -14,9 +14,6 @@ import com.image.viever.view.menu.FileMenu;
 
 import java.io.File;
 
-/**
- * Created by Bartosz Wesolowski on 04.11.2018.
- */
 public class FileMenuController {
 
     final static int OK_EXIT_STATUS = 0;
@@ -43,11 +40,10 @@ public class FileMenuController {
 
     private void bindActionListeners() {
         fileMenu.getOpenMenuItem()
-                .addActionListener( e -> {
+                .addActionListener( e ->
                     pathPicker.getPath(fileMenu)
-                            .ifPresent(imageFile -> setNewImage(imageFile));
-
-                });
+                    .ifPresent(this::setNewImage)
+                );
 
         fileMenu.getOpenExampleMenuItem()
                 .addActionListener(e -> {
