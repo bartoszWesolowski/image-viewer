@@ -21,5 +21,8 @@ public class ActionPanelController {
 
         SwitchImagePanelController switchImagePanelController = new SwitchImagePanelController(actionPanel.getSwitchImagePanel(), viewedImages);
         switchImagePanelController.init();
+
+        GalleryPanelController galleryPanelController = new GalleryPanelController(actionPanel.getGalleryPanel(), viewedImages);
+        galleryPanelController.init();
     }
 }

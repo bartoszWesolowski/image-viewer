@@ -64,6 +64,7 @@ public class ViewedImagesModel {
         this.originalImage = originalImage;
         this.setBaseImageVersion(originalImage);
     }
+
     public void setBaseImageVersion(ImageWrapper imageWrapper) {
         this.currentBaseImageVersion = imageWrapper;
         this.currentlyDisplayedImageVersion = imageWrapper;
@@ -71,6 +72,10 @@ public class ViewedImagesModel {
 
     public void setCurrentlyDisplayedImageVersion(final ImageWrapper currentlyDisplayedImageVersion) {
         this.currentlyDisplayedImageVersion = currentlyDisplayedImageVersion;
+    }
+
+    public ImageWrapper getOriginalImage() {
+        return originalImage;
     }
 
     public ImageWrapper getCurrentBaseImageVersion() {
