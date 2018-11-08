@@ -18,7 +18,7 @@ public class ImageViewerFrame extends JFrame {
 
     private JLabel fileNameLabel = new JLabel("No file");
 
-    private JLabel statusLabel = new JLabel("Version 3.1");
+    private ImageMetadataPanel imageMetadataPanel = new ImageMetadataPanel();
 
     private ActionPanel actionPanel = new ActionPanel();
 
@@ -34,7 +34,7 @@ public class ImageViewerFrame extends JFrame {
         this.setJMenuBar(menu);
         this.contentPanel.add(imageScrollPanel, BorderLayout.CENTER);
         this.contentPanel.add(fileNameLabel, BorderLayout.NORTH);
-        this.contentPanel.add(statusLabel, BorderLayout.SOUTH);
+        this.contentPanel.add(imageMetadataPanel, BorderLayout.SOUTH);
         this.contentPanel.add(actionPanel, BorderLayout.EAST);
 
 
@@ -47,14 +47,8 @@ public class ImageViewerFrame extends JFrame {
     }
 
     public void displayNewImage(ImageWrapper image) {
-        File originalFile = image.getOriginalFile();
-        if (originalFile != null) {
-            double totalSpaceInKiloBytes = originalFile.length() / 1000.0;
-            double totalSpaceInMb = totalSpaceInKiloBytes * Math.pow(10, -3);
-            String format = String.format("File: %s, %s KB, %s MB", originalFile.getAbsolutePath(), totalSpaceInKiloBytes, totalSpaceInMb);
-            fileNameLabel.setText(format);
-
-        }
+        imageMetadataPanel.setMetadata(image);
+        fileNameLabel.setText(image.getOriginalFile().getAbsolutePath() + " Size : " + image.getSize() + "MB");
     }
 
     public ImageScrollPanel getImageScrollPanel() {
@@ -65,19 +59,7 @@ public class ImageViewerFrame extends JFrame {
         return menu;
     }
 
-    public JLabel getFileNameLabel() {
-        return fileNameLabel;
-    }
-
-    public JLabel getStatusLabel() {
-        return statusLabel;
-    }
-
     public ActionPanel getActionPanel() {
         return actionPanel;
-    }
-
-    public JPanel getContentPanel() {
-        return contentPanel;
     }
 }

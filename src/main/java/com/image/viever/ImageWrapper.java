@@ -1,5 +1,7 @@
 package com.image.viever;
 
+import com.image.viever.utils.FileUtil;
+
 import java.awt.*;
 import java.awt.image.*;
 import java.io.File;
@@ -59,5 +61,12 @@ public class ImageWrapper extends BufferedImage {
 
     public File getOriginalFile() {
         return originalFile;
+    }
+
+    /**
+     * @return Size of orginal file representing image in MB
+     */
+    public double getSize() {
+        return FileUtil.sizeInMb(originalFile);
     }
 }
