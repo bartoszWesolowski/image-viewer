@@ -40,6 +40,9 @@ public class ImageViewerFrame extends JFrame {
 
         this.pack();
 
+        setFocusable(true);
+        setFocusTraversalKeysEnabled(false);
+
         // place the frame at the center of the screen and show
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(d.width / 2 - this.getWidth() / 2, d.height / 2 - this.getHeight() / 2);

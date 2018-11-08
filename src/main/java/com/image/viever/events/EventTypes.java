@@ -5,7 +5,8 @@ import java.util.function.Consumer;
 
 public enum  EventTypes {
     IMAGE_MODIFIED, INVALID_FILE_LOADED, IMAGE_LOADED, IMAGE_CLOSED,
-    ZOOM_CHANGED;
+    ZOOM_CHANGED,
+    KEY_PRESSED;
 
     public String getId() {
         return this.toString();

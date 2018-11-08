@@ -43,6 +43,7 @@ public class GalleryPanelController {
                     File originalFile = viewedImagesModel.getOriginalImage().getOriginalFile();
                     try {
                         userSettingsManager.addFileToGroup(gallery.getId(), originalFile.getAbsolutePath());
+                        messagesPresenter.showInfoDialog("Success", "Image added to gallery");
                     } catch (UserSettingsModificationException e) {
                         messagesPresenter.showErrorDialog("Fail", "Failed to add image to gallery.");
                         LOGGER.error("Failed to add image to gallery", e);
