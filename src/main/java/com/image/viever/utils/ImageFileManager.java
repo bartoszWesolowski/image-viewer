@@ -1,4 +1,6 @@
-package com.image.viever;
+package com.image.viever.utils;
+
+import com.image.viever.ImageWrapper;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

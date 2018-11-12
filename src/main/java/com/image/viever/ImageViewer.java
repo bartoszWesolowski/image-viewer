@@ -13,6 +13,7 @@ import com.image.viever.filters.PixelizeFilter;
 import com.image.viever.filters.SmoothFilter;
 import com.image.viever.filters.SolarizeFilter;
 import com.image.viever.filters.ThresholdFilter;
+import com.image.viever.utils.ImageFileManager;
 import com.image.viever.view.ImagePanel;
 
 import java.awt.*;

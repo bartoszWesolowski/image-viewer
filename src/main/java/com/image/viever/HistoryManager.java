@@ -27,17 +27,11 @@ public class HistoryManager {
 	}
 	
 	public Boolean canUndo(){
-		if (currentStep>0)
-			return true;
-		else
-			return false;
+		return currentStep > 0;
 	}
 	
 	public Boolean canRedo(){
-		if (currentStep<(history.size()-1))
-			return true;
-		else
-			return false;
+		return currentStep < (history.size() - 1);
 	}
 	
 	public void redo(){

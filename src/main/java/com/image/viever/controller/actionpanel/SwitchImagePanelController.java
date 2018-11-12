@@ -1,6 +1,6 @@
 package com.image.viever.controller.actionpanel;
 
-import com.image.viever.ImageFileManager;
+import com.image.viever.utils.ImageFileManager;
 import com.image.viever.events.EventManager;
 import com.image.viever.events.EventTypes;
 import com.image.viever.events.impl.ImageLoadedEvent;

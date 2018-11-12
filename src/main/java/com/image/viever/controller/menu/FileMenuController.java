@@ -1,6 +1,6 @@
 package com.image.viever.controller.menu;
 
-import com.image.viever.ImageFileManager;
+import com.image.viever.utils.ImageFileManager;
 import com.image.viever.ImageWrapper;
 import com.image.viever.events.Event;
 import com.image.viever.events.EventManager;

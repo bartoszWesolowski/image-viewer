@@ -16,6 +16,8 @@ public class MenuBar extends JMenuBar {
 
     private FilterMenu filterMenu = new FilterMenu();
 
+    private GalleriesMenu galleriesMenu = new GalleriesMenu();
+
     private HelpMenu helpMenu = new HelpMenu();
 
     public MenuBar() {
@@ -24,6 +26,8 @@ public class MenuBar extends JMenuBar {
         add(editMenu);
         add(imageMenu);
         add(filterMenu);
+        add(galleriesMenu);
+
         add(helpMenu);
     }
 
@@ -43,7 +47,10 @@ public class MenuBar extends JMenuBar {
         return filterMenu;
     }
 
-    @Override
+    public GalleriesMenu getGalleriesMenu() {
+        return galleriesMenu;
+    }
+
     public HelpMenu getHelpMenu() {
         return helpMenu;
     }

@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 public class UserSettingsManager {
 
@@ -54,7 +55,14 @@ public class UserSettingsManager {
         return userSettings;
     }
 
-    public void addFileToGroup(String groupId, String file) throws UserSettingsModificationException {
+    public Optional<ImageGallery> getGallery(String id) {
+        return getSettings()
+                .getImageGalleries()
+                .stream()
+                .filter(imageGallery -> StringUtils.equals(id, imageGallery.getId()))
+                .findFirst();
+    }
+    public void addFileToGallery(String groupId, String file) throws UserSettingsModificationException {
         UserSettings us = getSettings();
         us.getImageGalleries().stream()
                 .filter(g -> StringUtils.equals(g.getId(), groupId))

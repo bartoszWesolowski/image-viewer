@@ -1,9 +1,13 @@
 package com.image.viever.model;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ImageGallery {
 
@@ -11,7 +15,7 @@ public class ImageGallery {
 
     private String label;
 
-    private List<String> imagesPaths = new ArrayList<>();
+    private Set<String> imagesPaths = new HashSet<>();
 
     public String getId() {
         return id;
@@ -29,8 +33,8 @@ public class ImageGallery {
         this.label = label;
     }
 
-    public List<String> getImagesPaths() {
-        return ImmutableList.copyOf(imagesPaths);
+    public Collection<String> getImagesPaths() {
+        return ImmutableSet.copyOf(imagesPaths);
     }
 
     void addPath(String path) {

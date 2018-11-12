@@ -1,6 +1,5 @@
 package com.image.viever.controller.actionpanel;
 
-import com.image.viever.model.ImageGallery;
 import com.image.viever.model.UserSettingsManager;
 import com.image.viever.model.UserSettingsModificationException;
 import com.image.viever.model.ViewedImagesModel;
@@ -42,7 +41,7 @@ public class GalleryPanelController {
                 .ifPresent(gallery -> {
                     File originalFile = viewedImagesModel.getOriginalImage().getOriginalFile();
                     try {
-                        userSettingsManager.addFileToGroup(gallery.getId(), originalFile.getAbsolutePath());
+                        userSettingsManager.addFileToGallery(gallery.getId(), originalFile.getAbsolutePath());
                         messagesPresenter.showInfoDialog("Success", "Image added to gallery");
                     } catch (UserSettingsModificationException e) {
                         messagesPresenter.showErrorDialog("Fail", "Failed to add image to gallery.");
