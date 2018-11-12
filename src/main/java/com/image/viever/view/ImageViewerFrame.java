@@ -1,6 +1,7 @@
 package com.image.viever.view;
 
 import com.image.viever.ImageWrapper;
+import com.image.viever.utils.SwingHelper;
 import com.image.viever.view.actionpanel.ActionPanel;
 import com.image.viever.view.actionpanel.ZoomPanel;
 import com.image.viever.view.menu.MenuBar;
@@ -44,8 +45,8 @@ public class ImageViewerFrame extends JFrame {
         setFocusTraversalKeysEnabled(false);
 
         // place the frame at the center of the screen and show
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(d.width / 2 - this.getWidth() / 2, d.height / 2 - this.getHeight() / 2);
+        SwingHelper.centralizeOnScreen(this);
+
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 

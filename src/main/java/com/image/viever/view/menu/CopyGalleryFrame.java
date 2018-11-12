@@ -10,7 +10,6 @@ public class CopyGalleryFrame extends JFrame {
 
     private JLabel destinationPathLabel = new JLabel("Select destination");
 
-
     private JButton selectDestinationPathButton = new JButton("Select destination path");
 
     private JButton cancelButton = new JButton("Cancel");
@@ -40,9 +39,10 @@ public class CopyGalleryFrame extends JFrame {
     }
 
     private JPanel createDestinationDirectoryPanel(){
-        JPanel jPanel = new JPanel();
+        JPanel jPanel = new JPanel(new GridLayout(2, 1));
         jPanel.add(destinationPathLabel);
         jPanel.add(selectDestinationPathButton);
+
         return jPanel;
     }
 
@@ -81,5 +81,6 @@ public class CopyGalleryFrame extends JFrame {
 
     public void setDestinationPath(String destinationPath) {
         destinationPathLabel.setText(destinationPath);
+        this.revalidate();
     }
 }

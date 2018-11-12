@@ -4,6 +4,7 @@ import com.image.viever.model.ImageGallery;
 import com.image.viever.utils.FileUtil;
 import com.image.viever.utils.MessagesPresenter;
 import com.image.viever.utils.PathPicker;
+import com.image.viever.view.ProgressBarFrame;
 import com.image.viever.view.menu.CopyGalleryFrame;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,10 +53,20 @@ public class CopyGalleryFrameController {
     private void copyGallery() {
         ImageGallery selected = copyGalleryFrame.getSelectedItem();
         if (selected != null && destinationFile != null) {
+            if (selected.getImagesPaths().isEmpty()) {
+                messagesPresenter.showWarningDialog("Empty gallery", "No images to copy");
+                return;
+            }
+            ProgressBarFrame progressBarFrame = new ProgressBarFrame("Copying image gallery", selected.getImagesPaths().size());
+            progressBarFrame.open();
             selected.getImagesPaths()
-                    .forEach(this::copyGalleryItem);
+                    .forEach(image -> {
+                        progressBarFrame
+                                .addMessage("Copying file : " + image)
+                                .operationCalculated();
+                        copyGalleryItem(image);
+                    });
             messagesPresenter.showInfoDialog("Operation finished successfully", "");
-            close();
         } else {
             messagesPresenter.showWarningDialog("Unable to copy gallery", "Please select destination path and Image gallery to copy.");
         }
