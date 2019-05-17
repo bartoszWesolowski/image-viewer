@@ -1,5 +1,8 @@
 package com.image.viever.controller.actionpanel;
 
+import com.image.viever.events.EventListener;
+import com.image.viever.events.EventManager;
+import com.image.viever.events.EventTypes;
 import com.image.viever.model.UserSettingsManager;
 import com.image.viever.model.UserSettingsModificationException;
 import com.image.viever.model.ViewedImagesModel;
@@ -34,6 +37,11 @@ public class GalleryPanelController {
                 addToGallery();
             }
         });
+        EventListener addGalleryEventListener = EventTypes.IMAGE_GALLERY_ADDED.eventListenerForType(event -> {
+            galleryPanel.refreshGalleries();
+        });
+
+        EventManager.getInstance().add(addGalleryEventListener);
     }
 
     private void addToGallery() {
@@ -48,5 +56,6 @@ public class GalleryPanelController {
                         LOGGER.error("Failed to add image to gallery", e);
                     }
                 });
+
     }
 }

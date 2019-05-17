@@ -50,4 +50,9 @@ public class ImageGalleriesComboBox extends JComboBox<ImageGallery> {
             return this;
         }
     }
+
+    public void refresh() {
+        ImageGallery[] options = getOptions();
+        this.setModel(new DefaultComboBoxModel(options));
+    }
 }

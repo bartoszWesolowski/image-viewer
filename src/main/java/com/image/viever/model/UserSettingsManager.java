@@ -62,6 +62,7 @@ public class UserSettingsManager {
                 .filter(imageGallery -> StringUtils.equals(id, imageGallery.getId()))
                 .findFirst();
     }
+
     public void addFileToGallery(String groupId, String file) throws UserSettingsModificationException {
         UserSettings us = getSettings();
         us.getImageGalleries().stream()
@@ -71,6 +72,12 @@ public class UserSettingsManager {
         save(us);
     }
 
+    public void createGallery(String label) throws UserSettingsModificationException {
+        ImageGallery imageGallery = new ImageGallery(label);
+        UserSettings settings = getSettings();
+        settings.getImageGalleries().add(imageGallery);
+        this.save(settings);
+    }
     private UserSettings getOrCreateEmpty() throws IOException {
         UserSettings userSettings = new UserSettings();
         File settingsFile = new File(USER_SETTINGS_FILE_PATH);

@@ -3,11 +3,7 @@ package com.image.viever.model;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class ImageGallery {
 
@@ -16,6 +12,11 @@ public class ImageGallery {
     private String label;
 
     private Set<String> imagesPaths = new HashSet<>();
+
+    public ImageGallery(String label) {
+        this.label = label;
+        this.id = UUID.randomUUID().toString() + ":" + Calendar.getInstance().getTimeInMillis();
+    }
 
     public String getId() {
         return id;
